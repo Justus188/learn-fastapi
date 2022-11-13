@@ -1,0 +1,12 @@
+Setup
+- Switch vsc to cmd to allow conda to work
+- Remember to cd to the correct root directory
+
+Virtual environment
+- Create: `conda create --name venv_name`
+- Activate: `venv_name\Scripts\activate`
+- Install packages: `conda install pkgname`
+
+Fastapi
+- Install: `conda install -c conda-forge fastapi`
+- Run server: `uvicorn main:app --reload`
