@@ -3,10 +3,15 @@ Setup
 - Remember to cd to the correct root directory
 
 Virtual environment
-- Create: `conda create --name venv_name`
+- Create: `conda create --name venv_name --file requirments.txt` or just package=version
 - Activate: `venv_name\Scripts\activate`
 - Install packages: `conda install pkgname`
+- General: requirements.txt: `conda list --export --from-history > requirements.txt`
+- For docker: env.yml: `conda env export --from-history > env.yml`
 
 Fastapi
 - Install: `conda install -c conda-forge fastapi`
 - Run server: `uvicorn main:app --reload`
+
+- Security
+    - Generate random secret key: `openssl rand -hex 32`
