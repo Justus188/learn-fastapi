@@ -2,15 +2,22 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-# SQLITE_URL = 'sqlite:///./{filename}'
-# MYSQL_URL = 'mysql+pymysql://{username}:{password}@{host}:{port}'
-# POSTGRES_URL = 'postgresql://{username}:{password}@{host}:{port}/{dbname}
+from config import settings
 
-filename = 'blog.db'
+DB_TYPE = settings.db_type
 
-DB_URL = f'sqlite:///./{filename}'
+match DB_TYPE:
+    case 'sqlite':
+        DB_URL = f'sqlite:///./{settings.sqlite_file}'
+    case 'mysql': 
+        DB_URL = f'mysql+pymysql://{settings.db_username}:{settings.db_password}@{settings.db_host}:{settings.db_port}/{settings.db_name}'
+    case 'postgres':
+        DB_URL = f'postgresql://{settings.db_username}:{settings.db_password}@{settings.db_host}:{settings.db_port}/{settings.db_name}'
 
-engine = create_engine(DB_URL, connect_args = {'check_same_thread': False}) #connect_args only for sqlite
+if DB_TYPE == 'sqlite':
+    engine = create_engine(DB_URL, connect_args = {'check_same_thread': False}) #connect_args only for sqlite
+else:
+    engine = create_engine(DB_URL)
 
 SessionLocal = sessionmaker(bind = engine, autocommit = False, autoflush = False)
 

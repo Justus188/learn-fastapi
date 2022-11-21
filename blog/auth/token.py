@@ -1,11 +1,13 @@
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 
+from config import settings
+
 from auth.exceptions import CredentialsException
 
-SECRET_KEY = "d4d525285238445cf916a4914a642bef9907fe967da2ead78ee07e245ae770ce"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+SECRET_KEY = f"{settings.secret_key}"
+ALGORITHM = f"{settings.algorithm}"
+ACCESS_TOKEN_EXPIRE_MINUTES = int(f"{settings.access_token_expire_minutes}")
 
 def create_token(data: dict, expires_delta: timedelta = timedelta(minutes = ACCESS_TOKEN_EXPIRE_MINUTES)):
     to_encode = data.copy()
@@ -17,10 +19,11 @@ def create_token(data: dict, expires_delta: timedelta = timedelta(minutes = ACCE
 def decode_token(token: str):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms= [ALGORITHM])
-        username: str = payload.get('sub')
         # get other information from payload here
-        if username is None:
-            raise CredentialsException
-        return username
     except JWTError:
         raise CredentialsException
+    try:
+        userid = int(payload.get('sub'))
+    except:
+        raise CredentialsException
+    return userid

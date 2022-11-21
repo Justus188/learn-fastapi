@@ -1,5 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from typing import List
+from datetime import datetime
 
 # Models for JSON input/output data validation. See models.py for SQLAlchemy models for DB.
 
@@ -17,6 +18,7 @@ class Blog(OrmModel):
 
 class UserOut(User):
     blogs: List[Blog] = []
+    created_at: datetime
     
 class UserCreate(User):
     password: str

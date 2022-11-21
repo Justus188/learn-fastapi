@@ -14,11 +14,8 @@ PATH_AUTH = '/login'
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl = PATH_AUTH[1:])
 
-def get_user_by_username(username:str, db: Session):
-    return db.query(User).filter(User.username == username).first()
-
 def get_user_by_token(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> User:
-    user = get_user_by_username(decode_token(token), db)
+    user = db.query(User).get(decode_token(token))
     if not user:
         raise CredentialsException
     return user
@@ -27,9 +24,9 @@ router = APIRouter(tags = ['auth'])
 
 @router.post(PATH_AUTH, response_model = Token)
 def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    user = get_user_by_username(request.username, db)
+    user = db.query(User).filter(User.username == request.username).first()
     if not user:
         raise FailedLoginException
     if not verify_password_hash(request.password, user.hashed_password):
         raise FailedLoginException
-    return {'access_token': create_token({"sub": user.username}), 'token_type': 'bearer'}
+    return {'access_token': create_token({"sub": str(user.id)}), 'token_type': 'bearer'}
