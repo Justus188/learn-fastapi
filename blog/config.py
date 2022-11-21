@@ -1,8 +1,7 @@
 from pydantic import BaseSettings
 
 class Settings(BaseSettings):
-    db_type: str
-
+    db_type: str # sqlite | mysql | postgres
     db_host: str | None
     db_port: str | None
     db_username: str | None

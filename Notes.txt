@@ -6,8 +6,9 @@ Virtual environment
 - Create: `conda create --name venv_name --file requirments.txt` or just package=version
 - Activate: `venv_name\Scripts\activate`
 - Install packages: `conda install pkgname` or `conda install -c conda-forge pkgname`
-- General: requirements.txt: `conda list --export --from-history > requirements.txt`
-- For docker: env.yml: `conda env export --from-history > env.yml`
+- Export:
+    - Pip: requirements.txt: `pip list --format=freeze > requirements.txt
+    - Conda: env.yml: `conda env export --from-history > env.yml`
 
 Fastapi
 - Install: `conda install -c conda-forge fastapi`
