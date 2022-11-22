@@ -1,14 +1,14 @@
-from auth.hash import verify_password_hash
-from auth.schemas import Token
-from auth.token import create_token, decode_token
-from auth.exceptions import CredentialsException, FailedLoginException
+from fastapi import APIRouter, Depends
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from sqlalchemy.orm import Session
 
 from database import get_db
 from models import User
 
-from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from auth.hash import verify_password_hash
+from auth.schemas import Token
+from auth.token import create_token, decode_token
+from auth.exceptions import CredentialsException, FailedLoginException
 
 PATH_AUTH = '/login'
 

@@ -21,5 +21,14 @@ Alembic - DB version control
 - Upgrade (version can use unique string or relative indexes, latest = "head"): `alembic upgrade version`
 - Downgrade: `alembic downgrade version`
 
+Docker
+- Remember to start docker desktop before doing anything
+- Build image (current directory = .): `docker build -t image_name directory`
+- Start container: `docker run -d --name container_name -p host_port:container_port image_name`
+- List containers: `docker ps -q`
+- Kill container: `docker kill container_name`
+- Remove container after force-stopping: `docker rm -f container_name`
+- Remove all stopped containers: `docker system prune`
+
 Security
 - Generate random secret key: `openssl rand -hex 32`

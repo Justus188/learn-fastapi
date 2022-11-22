@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-import schemas, models
-from typing import List
-from database import get_db
 from sqlalchemy.orm import Session
+from typing import List
 
+from database import get_db
+import schemas, models
 from auth.oauth2 import get_user_by_token
 
 router = APIRouter(prefix = '/blog', tags = ['blogs'])
