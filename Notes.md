@@ -3,11 +3,11 @@ Setup
 - Remember to cd to the correct root directory
 
 Virtual environment
-- Create: `conda create --name venv_name --file requirments.txt` or just package=version
-- Activate: `venv_name\Scripts\activate`
+- Create: Conda: `conda create --name venv_name --file requirments.txt` or just package=version
+- Activate: Conda: `activate venv_name`, pip-venv: `venv_name\Scripts\activate`
 - Install packages: `conda install pkgname` or `conda install -c conda-forge pkgname`
 - Export:
-    - Pip: requirements.txt: `pip list --format=freeze > requirements.txt
+    - Pip: requirements.txt: `pip list --format=freeze > requirements.txt`
     - Conda: env.yml: `conda env export --from-history > env.yml`
 
 Fastapi
